@@ -1,0 +1,13 @@
+{
+  "author": "MTRIET DZ",
+  "aimbot": true,
+  "no_recoil": true,
+  "sensitivity": 1000,
+  "fps_target": 120,
+  "touch_sampling": 480,
+  "magic_bullet": true,
+  "wallhack": true,
+  "speed_multiplier": 1.5,
+  "fly_height": 100,
+  "esp": true
+}
