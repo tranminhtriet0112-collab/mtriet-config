@@ -10,4 +10,66 @@
   "speed_multiplier": 1.5,
   "fly_height": 100,
   "esp": true
+},
+  
+  "nhay_tam": {
+    "mouse_sensitivity": 1000,
+    "mousex_aim_level": 1000,
+    "vertical_sens": 1000,
+    "touch_directinal_aiming": 1000,
+    "touch_freelook": 1000,
+    "mouse_aim_switch": true,
+    "gradual_switch": true
+  },
+
+  "nhe_tam": {
+    "mouse_smoothing": true,
+    "mouse_filtering": 0.0,
+    "slide_control": "light",
+    "touch_fixed_sensitivity": true,
+    "scroll_friction": 0.001
+  },
+
+  "lia_cao": {
+    "drag_min_switch_speed": 999999999,
+    "acceleration": 999999999,
+    "swipe_angle_cosine": 99.9,
+    "pointer_speed": 99,
+    "touch_slop": 0,
+    "deadzone": 0,
+    "scroll_friction": 0.001
+  },
+
+  "bam_dau": {
+    "head_lock_sensitivity": 99.9,
+    "drag_to_head": true,
+    "snap_head_strength": 9999999,
+    "sticky_aim": true,
+    "sticky_duration": 99999,
+    "aim_lock_head_strength": 90,
+    "magnetic_pull": true,
+    "magnetic_force": 99.9,
+    "auto_aim_strength": 9999,
+    "aim_assist_strength": 9999,
+    "aim_range": 99999
+  },
+
+  "ghim_dau_90": {
+    "enabled": true,
+    "head_lock_power": 90,
+    "snap_force": 90,
+    "stick_force": 90,
+    "magnetic_aim_power": 90
+  },
+
+  "chong_rung_tam": {
+    "enabled": true,
+    "anti_shake_recoil": 999,
+    "smooth_recoil_stabilizer": 999,
+    "grip_stabilizer": 999,
+    "recoil_drag_limiter": 999,
+    "vertical_recoil_fix": 999,
+    "horizontal_recoil_fix": 999,
+    "vibration_feedback": 0
+  }
 }
