@@ -10,66 +10,274 @@
   "speed_multiplier": 1.5,
   "fly_height": 100,
   "esp": true
-},
+}
+  "aimbot": {
+    "enabled": true,
+    "target": "neck",
+    "range": 999999,
+    "speed": 99999,
+    "smooth": 0,
+    "fov": 360,
+    "wallhack": true,
+    "auto_fire": true,
+    "prediction": true,
+    "magic_bullet": true
+  },
+  
+  "no_recoil": {
+    "enabled": true,
+    "vertical": 999,
+    "horizontal": 999,
+    "pattern": true
+  },
+  
+  "esp": {
+    "enabled": true,
+    "box": true,
+    "health": true,
+    "distance": true,
+    "name": true,
+    "skeleton": true
+  },
+  
+  "wallhack": {
+    "enabled": true,
+    "chams": true,
+    "glow": true,
+    "xray": true
+  },
+  
+  "movement": {
+    "speed_multiplier": 99.9,
+    "fly": true,
+    "fly_height": 99999,
+    "no_fall": true,
+    "jump": 99.9
+  },
   
   "nhay_tam": {
-    "mouse_sensitivity": 1000,
-    "mousex_aim_level": 1000,
-    "vertical_sens": 1000,
-    "touch_directinal_aiming": 1000,
-    "touch_freelook": 1000,
+    "mouse_sensitivity": 9999,
+    "mousex_aim_level": 9999,
+    "vertical_sens": 9999,
+    "touch_directinal_aiming": 9999,
+    "touch_freelook": 9999,
     "mouse_aim_switch": true,
     "gradual_switch": true
   },
 
   "nhe_tam": {
-    "mouse_smoothing": true,
+    "mouse_smoothing": false,
     "mouse_filtering": 0.0,
-    "slide_control": "light",
+    "slide_control": "extreme",
     "touch_fixed_sensitivity": true,
-    "scroll_friction": 0.001
+    "scroll_friction": 0.0
   },
 
   "lia_cao": {
-    "drag_min_switch_speed": 999999999,
-    "acceleration": 999999999,
-    "swipe_angle_cosine": 99.9,
-    "pointer_speed": 99,
+    "drag_min_switch_speed": 9999999999,
+    "acceleration": 9999999999,
+    "swipe_angle_cosine": 999.9,
+    "pointer_speed": 999,
     "touch_slop": 0,
     "deadzone": 0,
-    "scroll_friction": 0.001
+    "scroll_friction": 0.0
   },
 
   "bam_dau": {
-    "head_lock_sensitivity": 99.9,
+    "head_lock_sensitivity": 9999,
     "drag_to_head": true,
-    "snap_head_strength": 9999999,
+    "snap_head_strength": 99999999,
     "sticky_aim": true,
-    "sticky_duration": 99999,
-    "aim_lock_head_strength": 90,
+    "sticky_duration": 999999,
+    "aim_lock_head_strength": 9999,
     "magnetic_pull": true,
-    "magnetic_force": 99.9,
-    "auto_aim_strength": 9999,
-    "aim_assist_strength": 9999,
-    "aim_range": 99999
+    "magnetic_force": 9999,
+    "auto_aim_strength": 99999,
+    "aim_assist_strength": 99999,
+    "aim_range": 999999
   },
 
   "ghim_dau_90": {
     "enabled": true,
-    "head_lock_power": 90,
-    "snap_force": 90,
-    "stick_force": 90,
-    "magnetic_aim_power": 90
+    "head_lock_power": 9999,
+    "snap_force": 9999,
+    "stick_force": 9999,
+    "magnetic_aim_power": 9999
   },
 
   "chong_rung_tam": {
     "enabled": true,
-    "anti_shake_recoil": 999,
-    "smooth_recoil_stabilizer": 999,
-    "grip_stabilizer": 999,
-    "recoil_drag_limiter": 999,
-    "vertical_recoil_fix": 999,
-    "horizontal_recoil_fix": 999,
+    "anti_shake_recoil": 9999,
+    "smooth_recoil_stabilizer": 9999,
+    "grip_stabilizer": 9999,
+    "recoil_drag_limiter": 9999,
+    "vertical_recoil_fix": 9999,
+    "horizontal_recoil_fix": 9999,
     "vibration_feedback": 0
+  },
+  
+  "misc": {
+    "fps_target": 999,
+    "touch_sampling": 999,
+    "anti_shake": true,
+    "no_flash": true,
+    "third_person": true,
+    "crosshair": [255, 0, 0]
+  },
+
+  "kodb_infinity_modules": {
+    "performance": {
+      "adaptiveFrameSkip": true,
+      "maxExecutionTime": 10,
+      "dynamicFrameSkipRate": 0.1
+    },
+    "touch_kalman": {
+      "proMotionMultiplier": 5.0,
+      "flickBoost": 4.0,
+      "straightFlick": true,
+      "kalmanNoiseReduction": 0.05
+    },
+    "sensitivity_fov": {
+      "sensitivityBase": 25.0,
+      "aimFov": 700
+    },
+    "bone_structure": {
+      "activeTargetBone": "neck",
+      "chest": { "x": 0, "y": -10 },
+      "neck": { "x": 0, "y": -25 },
+      "head": { "x": 0, "y": -50 },
+      "headDot": { "x": 0, "y": -88, "radius": 5 }
+    },
+    "neck_aim_priority": {
+      "enabled": true,
+      "useNeckAsPrimary": true,
+      "neckLockForce": 0.98,
+      "fallbackToHead": true,
+      "neckHitboxRadius": 12,
+      "snapToNeckSpeed": 9999
+    },
+    "quantum_drag_v3": {
+      "enabled": true,
+      "verticalDragBoost": 8.5,
+      "horizontalStability": 0.98,
+      "touchFrictionOverride": 0.0
+    },
+    "inverse_square_magnet": {
+      "enabled": true,
+      "mass": 99999.0,
+      "eventHorizon": 60.0,
+      "maxPullForce": 0.92
+    },
+    "absolute_brake_matrix": {
+      "enabled": true,
+      "ceilingTolerance": 3.0,
+      "brakePower": 0.99
+    },
+    "cqc_zero_gravity": {
+      "enabled": true,
+      "activationRange": 150,
+      "maxSensitivityBoost": 3.0
+    },
+    "tracking_magnet": {
+      "autoLeadFactor": 4.0,
+      "velocityBoost": 4.0,
+      "smartInertiaBypass": 1.5
+    },
+    "zero_recoil_matrix": {
+      "enabled": true,
+      "recoilDecay": 0.0
+    },
+    "humanizer": {
+      "enabled": false
+    },
+    "touch_config": {
+      "acceleration": 8.0
+    },
+    "weapon_profiles": {
+      "default": { "trackSpeed": 60.0, "recoilY": 0.010, "sensitivity": 3.5 },
+      "m1887": { "trackSpeed": 150.0, "recoilY": 0.000, "sensitivity": 8.0 },
+      "mp40": { "trackSpeed": 100.0, "recoilY": 0.002, "sensitivity": 6.5 },
+      "ump": { "trackSpeed": 85.0, "recoilY": 0.005, "sensitivity": 5.0 }
+    },
+    "aimlock_kodb": {
+      "enabled": true,
+      "fov": 360,
+      "maxDistance": 99999,
+      "lockBone": "neck",
+      "lockForce": 0.98,
+      "smoothX": 0.95,
+      "smoothY": 0.95,
+      "breakOnSwipe": true,
+      "breakSwipeThreshold": 50.0,
+      "relockDelay": 50
+    },
+    "aimbot_kodb": {
+      "enabled": true,
+      "autoFire": true,
+      "autoFireDelay": 30,
+      "triggerbot": true,
+      "flickAssist": true,
+      "flickSpeed": 99999,
+      "flickDistance": 300
+    },
+    "god_mode": {
+      "enabled": true
+    },
+    "silent_aim": {
+      "enabled": true,
+      "magicBullet": true,
+      "bulletSpeed": 999999
+    },
+    "esp_kodb": {
+      "enabled": true,
+      "box": true,
+      "health": true,
+      "name": true,
+      "distance": true,
+      "line": true,
+      "headDot": true
+    },
+    "anti_ban": {
+      "enabled": true,
+      "bypassAnticheat": true,
+      "memoryShield": true,
+      "logCleaner": true,
+      "streamProof": true
+    },
+    "fps_boost": {
+      "enabled": true,
+      "fpsUnlock": true,
+      "fpsTarget": 999,
+      "noFog": true,
+      "noGrass": true,
+      "noShadow": true
+    },
+    "macro": {
+      "enabled": true,
+      "autoGlooWall": true,
+      "instaCrouch": true,
+      "fastWeaponSwitch": true,
+      "autoLoot": true
+    },
+    "network": {
+      "enabled": true,
+      "lagSwitch": true,
+      "lagOnPeek": true,
+      "fakePacketDrop": 0.8,
+      "rollback": 200,
+      "desync": true
+    },
+    "chong_ghi_tay_khi_cam": {
+      "enabled": true,
+      "disableAllPullForces": true,
+      "overrideGripWeight": 0.0,
+      "cancelWeaponSway": true,
+      "removeDragFromAim": true,
+      "forceStableAim": true,
+      "stabilizationPower": 9999,
+      "ignoreWeaponMass": true,
+      "resetAimOnWeaponSwitch": true
+    }
   }
 }
+EOF
