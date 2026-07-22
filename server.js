@@ -1,12 +1,5 @@
-res.status(200).send('OK');
-    } else {
-        res.status(401).send('Unauthorized');
-    }
-});
-
-// Route /config.json – yêu cầu đăng nhập qua cookie/session ảo
+// Route /config.json – yêu cầu đăng nhập qua header Authorization
 app.get('/config.json', (req, res) => {
-    // Kiểm tra header Authorization (dùng cho curl)
     const auth = req.headers.authorization;
     if (auth) {
         const base64 = auth.split(' ')[1];
@@ -15,8 +8,6 @@ app.get('/config.json', (req, res) => {
             return res.sendFile(path.join(__dirname, 'config.json'));
         }
     }
-
-    // Nếu không có auth, chuyển về trang đăng nhập
     res.redirect('/');
 });
 
