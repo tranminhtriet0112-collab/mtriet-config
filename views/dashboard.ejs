@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - MTRIET DZ</title>
+    <style>
+        body { background:#0f0c29; color:#fff; font-family:Arial; text-align:center; padding:30px; }
+        .card { background:rgba(255,255,255,0.05); padding:20px; border-radius:20px; margin:15px auto; width:90%; max-width:400px; cursor:pointer; transition:0.3s; }
+        .card:hover { background:rgba(255,255,255,0.15); transform:scale(1.02); }
+        .btn { display:inline-block; background:#f7971e; color:#000; padding:10px 20px; border-radius:50px; text-decoration:none; font-weight:bold; }
+        .logout { color:#ff6b6b; display:block; margin-top:30px; }
+    </style>
+</head>
+<body>
+    <h1>✦ MTRIET DZ ✦</h1>
+    <p>Chào <strong style="color:#f7971e;"><%= user %></strong></p>
+
+    <div class="card" onclick="window.open('https://www.tiktok.com/@mtrietdz','_blank')">
+        <h2>📱 TIKTOK</h2>
+        <span class="btn">Mở TikTok</span>
+    </div>
+
+    <div class="card" onclick="window.open('https://zalo.me/g/beslkt992','_blank')">
+        <h2>💬 ZALO</h2>
+        <span class="btn">Mở Zalo</span>
+    </div>
+
+    <div class="card" onclick="window.location.href='/xr-panel'">
+        <h2>🔶 CRITICAL XR PANEL</h2>
+        <span class="btn">Vào Panel</span>
+    </div>
+
+    <a href="/logout" class="logout">Đăng xuất</a>
+</body>
+</html>
