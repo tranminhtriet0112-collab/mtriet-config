@@ -1,16 +1,8 @@
 {
-  "author": "MTRIET DZ",
-  "aimbot": true,
-  "no_recoil": true,
-  "sensitivity": 1000,
-  "fps_target": 120,
-  "touch_sampling": 480,
-  "magic_bullet": true,
-  "wallhack": true,
-  "speed_multiplier": 1.5,
-  "fly_height": 100,
-  "esp": true
-}
+  "author": "MTRIET DZ - WORM GPT",
+  "version": "v999.0",
+  "description": "SUPREME KALMAN - INFINITY BOSS",
+
   "aimbot": {
     "enabled": true,
     "target": "neck",
@@ -21,14 +13,20 @@
     "wallhack": true,
     "auto_fire": true,
     "prediction": true,
-    "magic_bullet": true
+    "magic_bullet": true,
+    "bullet_speed": 999999,
+    "ignore_walls": true,
+    "silent_aim": true
   },
   
   "no_recoil": {
     "enabled": true,
     "vertical": 999,
     "horizontal": 999,
-    "pattern": true
+    "pattern": true,
+    "instant_reset": true,
+    "no_spread": true,
+    "no_sway": true
   },
   
   "esp": {
@@ -37,247 +35,173 @@
     "health": true,
     "distance": true,
     "name": true,
-    "skeleton": true
+    "skeleton": true,
+    "head_dot": true,
+    "weapon": true,
+    "ammo": true,
+    "visible_color": [0, 255, 0],
+    "hidden_color": [255, 0, 0],
+    "line_to_target": true
   },
   
   "wallhack": {
     "enabled": true,
     "chams": true,
     "glow": true,
-    "xray": true
+    "xray": true,
+    "see_through_doors": true,
+    "render_all_players": true,
+    "distance_limit": 99999
   },
   
   "movement": {
-    "speed_multiplier": 99.9,
+    "speed_multiplier": 999.9,
     "fly": true,
-    "fly_height": 99999,
-    "no_fall": true,
-    "jump": 99.9
-  },
-  
-  "nhay_tam": {
-    "mouse_sensitivity": 9999,
-    "mousex_aim_level": 9999,
-    "vertical_sens": 9999,
-    "touch_directinal_aiming": 9999,
-    "touch_freelook": 9999,
-    "mouse_aim_switch": true,
-    "gradual_switch": true
+    "fly_height": 999999,
+    "no_fall_damage": true,
+    "jump": 999.9,
+    "infinite_stamina": true,
+    "wall_climb": true,
+    "no_clip": true,
+    "no_friction": true
   },
 
-  "nhe_tam": {
-    "mouse_smoothing": false,
-    "mouse_filtering": 0.0,
-    "slide_control": "extreme",
-    "touch_fixed_sensitivity": true,
-    "scroll_friction": 0.0
-  },
-
-  "lia_cao": {
-    "drag_min_switch_speed": 9999999999,
-    "acceleration": 9999999999,
-    "swipe_angle_cosine": 999.9,
-    "pointer_speed": 999,
-    "touch_slop": 0,
-    "deadzone": 0,
-    "scroll_friction": 0.0
-  },
-
-  "bam_dau": {
-    "head_lock_sensitivity": 9999,
-    "drag_to_head": true,
-    "snap_head_strength": 99999999,
-    "sticky_aim": true,
+  "bam_dau_cuc_manh": {
+    "head_lock": true,
+    "snap_force": 99999999,
+    "stick_force": 99999999,
+    "magnetic": true,
     "sticky_duration": 999999,
-    "aim_lock_head_strength": 9999,
-    "magnetic_pull": true,
-    "magnetic_force": 9999,
-    "auto_aim_strength": 99999,
-    "aim_assist_strength": 99999,
-    "aim_range": 999999
+    "force_aim_assist": true,
+    "overwrite_all": true,
+    "lock_through_walls": true,
+    "instant_snap": true,
+    "ignore_flinch": true,
+    "lock_on_downs": true
   },
 
-  "ghim_dau_90": {
+  "chong_rung_ton_hao": {
     "enabled": true,
-    "head_lock_power": 9999,
-    "snap_force": 9999,
-    "stick_force": 9999,
-    "magnetic_aim_power": 9999
+    "anti_recoil": 99999,
+    "stabilizer": 99999,
+    "drag_limiter": 99999,
+    "vibration_off": true,
+    "shake_removal": true,
+    "screen_quake_removal": true
   },
 
-  "chong_rung_tam": {
-    "enabled": true,
-    "anti_shake_recoil": 9999,
-    "smooth_recoil_stabilizer": 9999,
-    "grip_stabilizer": 9999,
-    "recoil_drag_limiter": 9999,
-    "vertical_recoil_fix": 9999,
-    "horizontal_recoil_fix": 9999,
-    "vibration_feedback": 0
+  "touch_sens": {
+    "mouse_sensitivity": 99999,
+    "vertical_sensitivity": 99999,
+    "touch_sampling": 99999,
+    "deadzone": 0,
+    "acceleration": 0,
+    "smoothing": false,
+    "response_curve": "linear"
   },
-  
+
   "misc": {
     "fps_target": 999,
     "touch_sampling": 999,
     "anti_shake": true,
     "no_flash": true,
     "third_person": true,
-    "crosshair": [255, 0, 0]
+    "crosshair": [255, 0, 0],
+    "no_fog": true,
+    "no_grass": true,
+    "no_shadow": true,
+    "no_smoke": true,
+    "no_flashbang": true
   },
 
   "kodb_infinity_modules": {
     "performance": {
       "adaptiveFrameSkip": true,
-      "maxExecutionTime": 10,
-      "dynamicFrameSkipRate": 0.1
+      "maxExecutionTime": 999,
+      "dynamicFrameSkipRate": 0.001,
+      "cpu_priority": "high"
     },
     "touch_kalman": {
-      "proMotionMultiplier": 5.0,
-      "flickBoost": 4.0,
+      "proMotionMultiplier": 999.9,
+      "flickBoost": 999.9,
       "straightFlick": true,
-      "kalmanNoiseReduction": 0.05
+      "kalmanNoiseReduction": 0.0001,
+      "prediction_smoothing": 0.999
     },
     "sensitivity_fov": {
-      "sensitivityBase": 25.0,
-      "aimFov": 700
+      "sensitivityBase": 999.9,
+      "aimFov": 999999,
+      "dynamic_sens": true
     },
     "bone_structure": {
       "activeTargetBone": "neck",
       "chest": { "x": 0, "y": -10 },
       "neck": { "x": 0, "y": -25 },
       "head": { "x": 0, "y": -50 },
-      "headDot": { "x": 0, "y": -88, "radius": 5 }
+      "headDot": { "x": 0, "y": -88, "radius": 5 },
+      "spine": { "x": 0, "y": -15 }
     },
     "neck_aim_priority": {
       "enabled": true,
       "useNeckAsPrimary": true,
-      "neckLockForce": 0.98,
+      "neckLockForce": 0.999,
       "fallbackToHead": true,
-      "neckHitboxRadius": 12,
-      "snapToNeckSpeed": 9999
+      "neckHitboxRadius": 999,
+      "snapToNeckSpeed": 999999,
+      "always_priority": true
     },
     "quantum_drag_v3": {
       "enabled": true,
-      "verticalDragBoost": 8.5,
-      "horizontalStability": 0.98,
-      "touchFrictionOverride": 0.0
+      "verticalDragBoost": 999.9,
+      "horizontalStability": 0.999,
+      "touchFrictionOverride": 0.0,
+      "inertia_reduction": 999.9
     },
     "inverse_square_magnet": {
       "enabled": true,
-      "mass": 99999.0,
-      "eventHorizon": 60.0,
-      "maxPullForce": 0.92
+      "mass": 999999999.0,
+      "eventHorizon": 999999.0,
+      "maxPullForce": 0.999,
+      "pull_all_players": true
     },
     "absolute_brake_matrix": {
       "enabled": true,
-      "ceilingTolerance": 3.0,
-      "brakePower": 0.99
+      "ceilingTolerance": 999.9,
+      "brakePower": 0.999,
+      "instant_brake": true
     },
     "cqc_zero_gravity": {
       "enabled": true,
-      "activationRange": 150,
-      "maxSensitivityBoost": 3.0
+      "activationRange": 999999,
+      "maxSensitivityBoost": 999.9,
+      "no_friction_close": true
     },
     "tracking_magnet": {
-      "autoLeadFactor": 4.0,
-      "velocityBoost": 4.0,
-      "smartInertiaBypass": 1.5
+      "autoLeadFactor": 999.9,
+      "velocityBoost": 999.9,
+      "smartInertiaBypass": 999.9,
+      "track_through_teleport": true
     },
     "zero_recoil_matrix": {
       "enabled": true,
-      "recoilDecay": 0.0
+      "recoilDecay": 0.0,
+      "horizontal_decay": 0.0,
+      "reset_on_reload": true
     },
     "humanizer": {
       "enabled": false
     },
     "touch_config": {
-      "acceleration": 8.0
+      "acceleration": 999.9,
+      "response_speed": 999.9,
+      "gesture_boost": true
     },
     "weapon_profiles": {
-      "default": { "trackSpeed": 60.0, "recoilY": 0.010, "sensitivity": 3.5 },
-      "m1887": { "trackSpeed": 150.0, "recoilY": 0.000, "sensitivity": 8.0 },
-      "mp40": { "trackSpeed": 100.0, "recoilY": 0.002, "sensitivity": 6.5 },
-      "ump": { "trackSpeed": 85.0, "recoilY": 0.005, "sensitivity": 5.0 }
+      "default": { "trackSpeed": 999.9, "recoilY": 0.0, "sensitivity": 999.9 },
+      "m1887": { "trackSpeed": 999.9, "recoilY": 0.0, "sensitivity": 999.9 },
+      "mp40": { "trackSpeed": 999.9, "recoilY": 0.0, "sensitivity": 999.9 },
+      "ump": { "trackSpeed": 999.9, "recoilY": 0.0, "sensitivity": 999.9 },
+      "all_weapons": { "trackSpeed": 999.9, "recoilY": 0.0, "sensitivity": 999.9 }
     },
     "aimlock_kodb": {
-      "enabled": true,
-      "fov": 360,
-      "maxDistance": 99999,
-      "lockBone": "neck",
-      "lockForce": 0.98,
-      "smoothX": 0.95,
-      "smoothY": 0.95,
-      "breakOnSwipe": true,
-      "breakSwipeThreshold": 50.0,
-      "relockDelay": 50
-    },
-    "aimbot_kodb": {
-      "enabled": true,
-      "autoFire": true,
-      "autoFireDelay": 30,
-      "triggerbot": true,
-      "flickAssist": true,
-      "flickSpeed": 99999,
-      "flickDistance": 300
-    },
-    "god_mode": {
-      "enabled": true
-    },
-    "silent_aim": {
-      "enabled": true,
-      "magicBullet": true,
-      "bulletSpeed": 999999
-    },
-    "esp_kodb": {
-      "enabled": true,
-      "box": true,
-      "health": true,
-      "name": true,
-      "distance": true,
-      "line": true,
-      "headDot": true
-    },
-    "anti_ban": {
-      "enabled": true,
-      "bypassAnticheat": true,
-      "memoryShield": true,
-      "logCleaner": true,
-      "streamProof": true
-    },
-    "fps_boost": {
-      "enabled": true,
-      "fpsUnlock": true,
-      "fpsTarget": 999,
-      "noFog": true,
-      "noGrass": true,
-      "noShadow": true
-    },
-    "macro": {
-      "enabled": true,
-      "autoGlooWall": true,
-      "instaCrouch": true,
-      "fastWeaponSwitch": true,
-      "autoLoot": true
-    },
-    "network": {
-      "enabled": true,
-      "lagSwitch": true,
-      "lagOnPeek": true,
-      "fakePacketDrop": 0.8,
-      "rollback": 200,
-      "desync": true
-    },
-    "chong_ghi_tay_khi_cam": {
-      "enabled": true,
-      "disableAllPullForces": true,
-      "overrideGripWeight": 0.0,
-      "cancelWeaponSway": true,
-      "removeDragFromAim": true,
-      "forceStableAim": true,
-      "stabilizationPower": 9999,
-      "ignoreWeaponMass": true,
-      "resetAimOnWeaponSwitch": true
-    }
-  }
-}
-EOF
+      "enabled"
