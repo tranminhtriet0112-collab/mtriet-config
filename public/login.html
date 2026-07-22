@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>MTRIET DZ - Đăng Nhập</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; font-family:Arial; }
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+        .login-box {
+            background:rgba(255,255,255,0.05);
+            backdrop-filter:blur(20px);
+            padding:40px;
+            border-radius:30px;
+            width:380px;
+            text-align:center;
+            border:1px solid rgba(255,255,255,0.1);
+        }
+        .logo {
+            font-size:48px;
+            font-weight:800;
+            background:linear-gradient(90deg,#f7971e,#ffd200);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+        }
+        input {
+            width:100%;
+            padding:14px;
+            margin:10px 0;
+            border-radius:50px;
+            border:1px solid rgba(255,255,255,0.15);
+            background:rgba(255,255,255,0.07);
+            color:#fff;
+            font-size:16px;
+        }
+        button {
+            width:100%;
+            padding:14px;
+            border:none;
+            border-radius:50px;
+            background:linear-gradient(90deg,#f7971e,#ffd200);
+            font-weight:bold;
+            font-size:18px;
+            color:#000;
+            cursor:pointer;
+        }
+        .error { color:#ff6b6b; display:none; margin-top:10px; }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <div class="logo">✦ MTRIET DZ ✦</div>
+        <form onsubmit="login(event)">
+            <input type="text" id="username" placeholder="Tên đăng nhập" required>
+            <input type="password" id="password" placeholder="Mật khẩu" required>
+            <button type="submit">🚀 ĐĂNG NHẬP</button>
+            <div id="errorMsg" class="error">Sai tên hoặc mật khẩu!</div>
+        </form>
+    </div>
+    <script>
+        async function login(e) {
+            e.preventDefault();
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            const res = await fetch('/auth', {
+                method:'POST',
+                headers:{'Content-Type':'application/json'},
+                body:JSON.stringify({username:user, password:pass})
+            });
+            if(res.ok) window.location.href='/dashboard';
+            else document.getElementById('errorMsg').style.display='block';
+        }
+    </script>
+</body>
+</html>
