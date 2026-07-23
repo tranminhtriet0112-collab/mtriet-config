@@ -1,3 +1,8 @@
 {
-  "tracking_magnet": { "autoLeadFactor": 999.9, "velocityBoost": 999.9 }
+  "tracking_magnet": {
+    "autoLeadFactor": 999.9,
+    "velocityBoost": 999.9,
+    "smartInertiaBypass": 999.9,
+    "predict_head_movement": true
+  }
 }
