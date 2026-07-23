@@ -1,0 +1,3 @@
+{
+  "performance": { "adaptiveFrameSkip": true, "dynamicFrameSkipRate": 0.001 }
+}

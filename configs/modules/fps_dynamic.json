@@ -1,0 +1,3 @@
+{
+  "fps_boost": { "enabled": true, "fpsUnlock": true, "fpsTarget": 9999 }
+}

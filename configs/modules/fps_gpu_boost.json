@@ -1,0 +1,3 @@
+{
+  "performance": { "gpu_boost": true, "memory_optimization": true }
+}
