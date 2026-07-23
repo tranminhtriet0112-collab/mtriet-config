@@ -1,3 +1,8 @@
 {
-  "touch_sens": { "mouse_sensitivity": 999000, "touch_sampling": 999000 }
+  "touch_sens": {
+    "mouse_sensitivity": 99999,
+    "touch_sampling": 99999,
+    "drag_sensitivity_boost": 999,
+    "swipe_sensitivity": 999
+  }
 }
