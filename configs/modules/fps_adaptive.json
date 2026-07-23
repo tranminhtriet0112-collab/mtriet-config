@@ -1,3 +1,6 @@
 {
-  "performance": { "adaptiveFrameSkip": true, "dynamicFrameSkipRate": 0.001 }
+  "fps_smooth": {
+    "adaptive": true,
+    "dynamic": true
+  }
 }
