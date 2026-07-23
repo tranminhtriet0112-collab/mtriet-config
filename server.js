@@ -19,9 +19,7 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// =============================================
-// ROUTE /config.json - CHỈ TRẢ VỀ FILE THẬT
-// =============================================
+// ===== ROUTE /config.json CÔNG KHAI =====
 app.get('/config.json', (req, res) => {
     const configPath = path.join(__dirname, 'public', 'config.json');
     res.setHeader('Content-Type', 'application/json');
@@ -37,9 +35,7 @@ app.get('/config.json', (req, res) => {
     }
 });
 
-// =============================================
-// CÁC ROUTE CHỨC NĂNG CHÍNH
-// =============================================
+// ===== MIDDLEWARE CHECK LOGIN =====
 function checkAuth(req, res, next) {
     if (req.cookies && req.cookies.loggedIn === 'true') {
         return next();
@@ -47,6 +43,7 @@ function checkAuth(req, res, next) {
     res.redirect('/');
 }
 
+// ===== TẠO THƯ MỤC CONFIG =====
 function ensureConfigDir() {
     const dir = path.join(__dirname, 'configs', 'modules', '1');
     if (!fs.existsSync(dir)) {
@@ -59,6 +56,7 @@ function ensureConfigDir() {
 }
 ensureConfigDir();
 
+// ===== TRANG ĐĂNG NHẬP =====
 app.get('/', (req, res) => {
     if (req.cookies && req.cookies.loggedIn === 'true') return res.redirect('/dashboard');
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
@@ -75,6 +73,7 @@ app.post('/auth', (req, res) => {
     }
 });
 
+// ===== DASHBOARD =====
 app.get('/dashboard', checkAuth, (req, res) => {
     const username = req.cookies.username || USER;
     const isUnlocked = (req.cookies && req.cookies.unlocked === 'true') || false;
@@ -86,6 +85,7 @@ app.get('/dashboard', checkAuth, (req, res) => {
     });
 });
 
+// ===== UNLOCK VIP =====
 app.post('/unlock', checkAuth, (req, res) => {
     const username = req.cookies.username || USER;
     const { key } = req.body;
@@ -106,6 +106,7 @@ app.post('/unlock', checkAuth, (req, res) => {
     }
 });
 
+// ===== TOGGLE MODULE =====
 app.post('/toggle', checkAuth, (req, res) => {
     const username = req.cookies.username || USER;
     const { module, sub, enabled } = req.body;
@@ -115,6 +116,7 @@ app.post('/toggle', checkAuth, (req, res) => {
     res.status(200).send('OK');
 });
 
+// ===== KÍCH HOẠT TẤT CẢ =====
 app.post('/activate-all', checkAuth, (req, res) => {
     const username = req.cookies.username || USER;
     const modules = ['aimlock', 'assistlock', 'fpssmooth', 'tagnhay', 'centerlock'];
@@ -135,6 +137,7 @@ app.post('/activate-all', checkAuth, (req, res) => {
     res.status(200).send('ALL_ACTIVATED');
 });
 
+// ===== MERGE CONFIG =====
 function mergeAllConfigs(modules) {
     const result = {};
     const moduleMap = {
@@ -168,6 +171,7 @@ function mergeAllConfigs(modules) {
     return result;
 }
 
+// ===== CONFIG WEB =====
 app.get('/config-web', checkAuth, (req, res) => {
     const username = req.cookies.username || USER;
     const modules = userModules[username] || {};
@@ -178,12 +182,55 @@ app.get('/config-web', checkAuth, (req, res) => {
     }
 });
 
+// ===== TRANG DONE =====
 app.get('/done', checkAuth, (req, res) => {
-    res.send(`<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Done - MTRIET DZ</title>
-    <style>
-        body { background: #0a0a0f; color: #fff; font-family: Arial; display: flex; justify-content
+    res.send(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Done - MTRIET DZ</title>
+            <style>
+                body { background: #0a0a0f; color: #fff; font-family: Arial; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+                .done-box { background: rgba(255,255,255,0.03); border: 2px solid #00ff88; border-radius: 40px; padding: 60px 80px; text-align: center; }
+                h1 { font-size: 80px; color: #00ff88; margin: 0; }
+                p { color: #888; font-size: 18px; }
+                .btn-back { display: inline-block; margin-top: 30px; padding: 12px 30px; border-radius: 50px; background: linear-gradient(90deg, #f7971e, #ffd200); color: #0a0a0f; font-weight: bold; text-decoration: none; }
+            </style>
+        </head>
+        <body>
+            <div class="done-box">
+                <h1>✅ DONE!!</h1>
+                <p>Tất cả module đã được kích hoạt!</p>
+                <a href="/dashboard" class="btn-back">⬅ Quay lại</a>
+            </div>
+        </body>
+        </html>
+    `);
+});
+
+// ===== LOGOUT =====
+app.get('/logout', (req, res) => {
+    res.clearCookie('loggedIn');
+    res.clearCookie('unlocked');
+    res.clearCookie('username');
+    res.redirect('/');
+});
+
+// ===== 404 =====
+app.use((req, res) => {
+    res.status(404).send('Không tìm thấy trang');
+});
+
+// ===== ERROR HANDLER =====
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Lỗi server');
+});
+
+// ===== START =====
+app.listen(PORT, () => {
+    console.log(`🔥 Server chạy tại http://localhost:${PORT}`);
+    console.log(`✅ Route /config.json sẵn sàng cho game`);
+});
