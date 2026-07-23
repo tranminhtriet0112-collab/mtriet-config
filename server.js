@@ -19,19 +19,30 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// ===== ROUTE CÔNG KHAI CHO GAME LẤY CONFIG (KHÔNG CẦN LOGIN) =====
+// =============================================
+// ROUTE CÔNG KHAI CHO GAME - KHÔNG CẦN LOGIN
+// =============================================
 app.get('/config.json', (req, res) => {
     const configPath = path.join(__dirname, 'public', 'config.json');
     res.setHeader('Content-Type', 'application/json');
     res.setHeader('Access-Control-Allow-Origin', '*');
+    
+    // Nếu có file thật, trả về file đó
     if (fs.existsSync(configPath)) {
-        res.sendFile(configPath);
-    } else {
-        res.status(404).json({ error: 'config.json not found in public folder' });
+        return res.sendFile(configPath);
     }
+    
+    // Nếu không có, trả về config mặc định (tránh lỗi 404)
+    const defaultConfig = {
+        author: "MTRIET DZ - DEFAULT",
+        version: "v1.0",
+        description: "Cấu hình mặc định - hãy upload config.json vào public/",
+        aimbot: { enabled: true, target: "head", range: 999999 }
+    };
+    res.json(defaultConfig);
 });
 
-// ===== MIDDLEWARE CHECK LOGIN =====
+// ===== CÁC ROUTE CÒN LẠI (GIỮ NGUYÊN) =====
 function checkAuth(req, res, next) {
     if (req.cookies && req.cookies.loggedIn === 'true') {
         return next();
@@ -39,7 +50,6 @@ function checkAuth(req, res, next) {
     res.redirect('/');
 }
 
-// ===== TẠO THƯ MỤC CONFIG NẾU CHƯA CÓ =====
 function ensureConfigDir() {
     const dir = path.join(__dirname, 'configs', 'modules', '1');
     if (!fs.existsSync(dir)) {
@@ -52,7 +62,6 @@ function ensureConfigDir() {
 }
 ensureConfigDir();
 
-// ===== TRANG ĐĂNG NHẬP =====
 app.get('/', (req, res) => {
     if (req.cookies && req.cookies.loggedIn === 'true') return res.redirect('/dashboard');
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
@@ -62,30 +71,31 @@ app.post('/auth', (req, res) => {
     const { username, password } = req.body;
     if (username === USER && password === PASS) {
         res.cookie('loggedIn', 'true', { maxAge: 3600000, httpOnly: true, path: '/' });
+        res.cookie('username', username, { maxAge: 3600000, httpOnly: true, path: '/' });
         res.status(200).send('OK');
     } else {
         res.status(401).send('Unauthorized');
     }
 });
 
-// ===== DASHBOARD =====
 app.get('/dashboard', checkAuth, (req, res) => {
+    const username = req.cookies.username || USER;
     const isUnlocked = (req.cookies && req.cookies.unlocked === 'true') || false;
     res.render('dashboard', {
-        user: USER,
-        version: 'v5.0',
+        user: username,
+        version: 'v6.0',
         unlocked: isUnlocked,
-        modules: userModules[USER] || {}
+        modules: userModules[username] || {}
     });
 });
 
-// ===== UNLOCK VIP =====
 app.post('/unlock', checkAuth, (req, res) => {
-    const { username, key } = req.body;
-    if (username === USER && key === VIP_KEY) {
+    const username = req.cookies.username || USER;
+    const { key } = req.body;
+    if (key === VIP_KEY) {
         res.cookie('unlocked', 'true', { maxAge: 3600000, httpOnly: true, path: '/' });
-        if (!userModules[USER]) {
-            userModules[USER] = {
+        if (!userModules[username]) {
+            userModules[username] = {
                 aimlock: { head: false, neck: false, snap: false, sticky: false, magnetic: false },
                 assistlock: { drag: false, stick: false, pull: false, smooth: false, brake: false },
                 fpssmooth: { boost: false, adaptive: false, dynamic: false, lagfix: false, gpuboost: false },
@@ -99,16 +109,35 @@ app.post('/unlock', checkAuth, (req, res) => {
     }
 });
 
-// ===== TOGGLE MODULE =====
 app.post('/toggle', checkAuth, (req, res) => {
+    const username = req.cookies.username || USER;
     const { module, sub, enabled } = req.body;
-    if (!userModules[USER]) userModules[USER] = {};
-    if (!userModules[USER][module]) userModules[USER][module] = {};
-    userModules[USER][module][sub] = enabled;
+    if (!userModules[username]) userModules[username] = {};
+    if (!userModules[username][module]) userModules[username][module] = {};
+    userModules[username][module][sub] = enabled;
     res.status(200).send('OK');
 });
 
-// ===== MERGE CONFIG =====
+app.post('/activate-all', checkAuth, (req, res) => {
+    const username = req.cookies.username || USER;
+    const modules = ['aimlock', 'assistlock', 'fpssmooth', 'tagnhay', 'centerlock'];
+    const subs = {
+        aimlock: ['head', 'neck', 'snap', 'sticky', 'magnetic'],
+        assistlock: ['drag', 'stick', 'pull', 'smooth', 'brake'],
+        fpssmooth: ['boost', 'adaptive', 'dynamic', 'lagfix', 'gpuboost'],
+        tagnhay: ['aim', 'touch', 'vertical', 'swipe', 'scope'],
+        centerlock: ['snap', 'stick', 'magnet', 'brake', 'prediction']
+    };
+    if (!userModules[username]) userModules[username] = {};
+    for (let mod of modules) {
+        if (!userModules[username][mod]) userModules[username][mod] = {};
+        for (let sub of subs[mod]) {
+            userModules[username][mod][sub] = true;
+        }
+    }
+    res.status(200).send('ALL_ACTIVATED');
+});
+
 function mergeAllConfigs(modules) {
     const result = {};
     const moduleMap = {
@@ -142,21 +171,34 @@ function mergeAllConfigs(modules) {
     return result;
 }
 
-// ===== CONFIG TỔNG HỢP CHO WEB (CÓ CHECK LOGIN) =====
 app.get('/config-web', checkAuth, (req, res) => {
-    const modules = userModules[USER] || {};
+    const username = req.cookies.username || USER;
+    const modules = userModules[username] || {};
     if (req.cookies.unlocked === 'true') {
         res.json(mergeAllConfigs(modules));
     } else {
-        res.json({ status: 'locked', message: 'Chưa unlock VIP' });
+        res.status(403).json({ status: 'locked', message: 'Chưa unlock VIP' });
     }
 });
 
-// ===== LOGOUT =====
+app.get('/done', checkAuth, (req, res) => {
+    res.send(`<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Done</title><style>body{background:#0a0a0f;color:#fff;font-family:Arial;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;}.done-box{background:rgba(255,255,255,0.03);border:2px solid #00ff88;border-radius:40px;padding:60px 80px;text-align:center;}h1{font-size:80px;color:#00ff88;margin:0;}p{color:#888;font-size:18px;}.btn-back{display:inline-block;margin-top:30px;padding:12px 30px;border-radius:50px;background:linear-gradient(90deg,#f7971e,#ffd200);color:#0a0a0f;font-weight:bold;text-decoration:none;}</style></head><body><div class="done-box"><h1>✅ DONE!!</h1><p>Tất cả module đã được kích hoạt!</p><a href="/dashboard" class="btn-back">⬅ Quay lại</a></div></body></html>`);
+});
+
 app.get('/logout', (req, res) => {
     res.clearCookie('loggedIn');
     res.clearCookie('unlocked');
+    res.clearCookie('username');
     res.redirect('/');
 });
 
-app.listen(PORT, () => console.log(`🔥 Server chạy tại http://localhost:${PORT}`));
+app.use((req, res) => res.status(404).send('Không tìm thấy trang'));
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Lỗi server');
+});
+
+app.listen(PORT, () => {
+    console.log(`🔥 Server chạy tại http://localhost:${PORT}`);
+    console.log(`✅ Route /config.json sẵn sàng cho game`);
+});
