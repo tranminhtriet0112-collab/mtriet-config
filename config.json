@@ -1,14 +1,14 @@
 {
-  "author": "MTRIET DZ - WORM GPT",
-  "version": "v999.0",
-  "description": "SUPREME KALMAN - INFINITY BOSS",
+  "author": "MTRIET DZ - SIÊU PHẨM",
+  "version": "v2.0",
+  "description": "CẤU HÌNH AIMLOCK CỨNG + TOUCH MƯỢT NHƯ IOS + FULL CẢM ỨNG MOBILE",
 
   "aimbot": {
     "enabled": true,
-    "target": "neck",
+    "target": "head",
     "range": 999999,
     "speed": 99999,
-    "smooth": 0,
+    "smooth": 0.5,
     "fov": 360,
     "wallhack": true,
     "auto_fire": true,
@@ -16,9 +16,10 @@
     "magic_bullet": true,
     "bullet_speed": 999999,
     "ignore_walls": true,
-    "silent_aim": true
+    "silent_aim": true,
+    "max_overshoot": 0.01
   },
-  
+
   "no_recoil": {
     "enabled": true,
     "vertical": 999,
@@ -26,9 +27,10 @@
     "pattern": true,
     "instant_reset": true,
     "no_spread": true,
-    "no_sway": true
+    "no_sway": true,
+    "adaptive_recoil": true
   },
-  
+
   "esp": {
     "enabled": true,
     "box": true,
@@ -41,9 +43,11 @@
     "ammo": true,
     "visible_color": [0, 255, 0],
     "hidden_color": [255, 0, 0],
-    "line_to_target": true
+    "line_to_target": true,
+    "neck_indicator": true,
+    "head_indicator": true
   },
-  
+
   "wallhack": {
     "enabled": true,
     "chams": true,
@@ -53,7 +57,7 @@
     "render_all_players": true,
     "distance_limit": 99999
   },
-  
+
   "movement": {
     "speed_multiplier": 999.9,
     "fly": true,
@@ -63,7 +67,8 @@
     "infinite_stamina": true,
     "wall_climb": true,
     "no_clip": true,
-    "no_friction": true
+    "no_friction": true,
+    "sprint_boost": true
   },
 
   "bam_dau_cuc_manh": {
@@ -77,7 +82,11 @@
     "lock_through_walls": true,
     "instant_snap": true,
     "ignore_flinch": true,
-    "lock_on_downs": true
+    "lock_on_downs": true,
+    "prevent_overshoot": true,
+    "head_priority": true,
+    "neck_fallback": true,
+    "max_overshoot_head": 0.1
   },
 
   "chong_rung_ton_hao": {
@@ -87,7 +96,9 @@
     "drag_limiter": 99999,
     "vibration_off": true,
     "shake_removal": true,
-    "screen_quake_removal": true
+    "screen_quake_removal": true,
+    "touch_lag_fix": true,
+    "fps_optimizer": true
   },
 
   "touch_sens": {
@@ -97,7 +108,11 @@
     "deadzone": 0,
     "acceleration": 0,
     "smoothing": false,
-    "response_curve": "linear"
+    "response_curve": "linear",
+    "multi_touch_support": true,
+    "drag_sensitivity_boost": 1.5,
+    "swipe_sensitivity": 2.0,
+    "ios_smoothness": true
   },
 
   "misc": {
@@ -111,7 +126,9 @@
     "no_grass": true,
     "no_shadow": true,
     "no_smoke": true,
-    "no_flashbang": true
+    "no_flashbang": true,
+    "performance_mode": true,
+    "ultra_optimized": true
   },
 
   "kodb_infinity_modules": {
@@ -119,74 +136,95 @@
       "adaptiveFrameSkip": true,
       "maxExecutionTime": 999,
       "dynamicFrameSkipRate": 0.001,
-      "cpu_priority": "high"
+      "cpu_priority": "high",
+      "gpu_boost": true,
+      "memory_optimization": true
     },
     "touch_kalman": {
       "proMotionMultiplier": 999.9,
       "flickBoost": 999.9,
       "straightFlick": true,
       "kalmanNoiseReduction": 0.0001,
-      "prediction_smoothing": 0.999
+      "prediction_smoothing": 0.999,
+      "instant_touch_response": true,
+      "ios_emulation": true
     },
     "sensitivity_fov": {
       "sensitivityBase": 999.9,
       "aimFov": 999999,
-      "dynamic_sens": true
+      "dynamic_sens": true,
+      "sens_boost_on_ads": true,
+      "sens_boost_on_hipfire": true,
+      "sens_boost_on_swipe": true
     },
     "bone_structure": {
-      "activeTargetBone": "neck",
+      "activeTargetBone": "head",
       "chest": { "x": 0, "y": -10 },
       "neck": { "x": 0, "y": -25 },
       "head": { "x": 0, "y": -50 },
       "headDot": { "x": 0, "y": -88, "radius": 5 },
-      "spine": { "x": 0, "y": -15 }
+      "spine": { "x": 0, "y": -15 },
+      "top_head": { "x": 0, "y": -95 }
     },
     "neck_aim_priority": {
       "enabled": true,
-      "useNeckAsPrimary": true,
-      "neckLockForce": 0.999,
+      "useNeckAsPrimary": false,
+      "useHeadAsPrimary": true,
+      "neckLockForce": 0.85,
+      "headLockForce": 0.99,
       "fallbackToHead": true,
       "neckHitboxRadius": 999,
       "snapToNeckSpeed": 999999,
-      "always_priority": true
+      "snapToHeadSpeed": 999999,
+      "always_priority": true,
+      "head_priority_multiplier": 1.5
     },
     "quantum_drag_v3": {
       "enabled": true,
       "verticalDragBoost": 999.9,
       "horizontalStability": 0.999,
       "touchFrictionOverride": 0.0,
-      "inertia_reduction": 999.9
+      "inertia_reduction": 999.9,
+      "drag_smoothness": 0.95
     },
     "inverse_square_magnet": {
       "enabled": true,
       "mass": 999999999.0,
       "eventHorizon": 999999.0,
       "maxPullForce": 0.999,
-      "pull_all_players": true
+      "pull_all_players": true,
+      "head_pull_boost": 2.0,
+      "neck_pull_boost": 1.5
     },
     "absolute_brake_matrix": {
       "enabled": true,
       "ceilingTolerance": 999.9,
       "brakePower": 0.999,
-      "instant_brake": true
+      "instant_brake": true,
+      "head_brake_power": 1.0,
+      "prevent_overshoot_brake": true
     },
     "cqc_zero_gravity": {
       "enabled": true,
       "activationRange": 999999,
       "maxSensitivityBoost": 999.9,
-      "no_friction_close": true
+      "no_friction_close": true,
+      "zero_gravity_effect": true
     },
     "tracking_magnet": {
       "autoLeadFactor": 999.9,
       "velocityBoost": 999.9,
       "smartInertiaBypass": 999.9,
-      "track_through_teleport": true
+      "track_through_teleport": true,
+      "track_through_drops": true,
+      "predict_head_movement": true
     },
     "zero_recoil_matrix": {
       "enabled": true,
       "recoilDecay": 0.0,
       "horizontal_decay": 0.0,
-      "reset_on_reload": true
+      "reset_on_reload": true,
+      "recoil_cancel_after_shot": true
     },
     "humanizer": {
       "enabled": false
@@ -194,7 +232,11 @@
     "touch_config": {
       "acceleration": 999.9,
       "response_speed": 999.9,
-      "gesture_boost": true
+      "gesture_boost": true,
+      "touch_drag_speed": 0.5,
+      "swipe_speed_boost": 0.8,
+      "multi_touch_optimized": true,
+      "ios_touch_curve": true
     },
     "weapon_profiles": {
       "default": { "trackSpeed": 999.9, "recoilY": 0.0, "sensitivity": 999.9 },
@@ -204,4 +246,128 @@
       "all_weapons": { "trackSpeed": 999.9, "recoilY": 0.0, "sensitivity": 999.9 }
     },
     "aimlock_kodb": {
-      "enabled"
+      "enabled": true,
+      "fov": 999999,
+      "maxDistance": 999999,
+      "lockBone": "head",
+      "lockForce": 0.999,
+      "smoothX": 1.0,
+      "smoothY": 1.0,
+      "breakOnSwipe": false,
+      "breakSwipeThreshold": 999999.0,
+      "relockDelay": 0,
+      "instant_lock": true,
+      "lock_on_spawn": true,
+      "head_lock_only": false,
+      "neck_fallback": true,
+      "prevent_overshoot": true,
+      "max_overshoot_angle": 0.1
+    },
+    "aimbot_kodb": {
+      "enabled": true,
+      "autoFire": true,
+      "autoFireDelay": 1,
+      "triggerbot": true,
+      "flickAssist": true,
+      "flickSpeed": 999999,
+      "flickDistance": 999999,
+      "fire_before_visible": true,
+      "headshot_priority": true,
+      "neck_priority": false
+    },
+    "god_mode": {
+      "enabled": true,
+      "infinite_health": true,
+      "no_damage": true,
+      "no_knockback": true,
+      "ignore_physics": true,
+      "invincible": true
+    },
+    "silent_aim": {
+      "enabled": true,
+      "magicBullet": true,
+      "bulletSpeed": 999999,
+      "no_tracers": true,
+      "hit_scan": true,
+      "instant_hit": true
+    },
+    "esp_kodb": {
+      "enabled": true,
+      "box": true,
+      "health": true,
+      "name": true,
+      "distance": true,
+      "line": true,
+      "headDot": true,
+      "weapon_info": true,
+      "ammo_count": true,
+      "visible_only": false,
+      "team_colors": true,
+      "neck_dot": true
+    },
+    "anti_ban": {
+      "enabled": true,
+      "bypassAnticheat": true,
+      "memoryShield": true,
+      "logCleaner": true,
+      "streamProof": true,
+      "obfuscate_modules": true,
+      "fake_anti_debug": true,
+      "randomize_signature": true
+    },
+    "fps_boost": {
+      "enabled": true,
+      "fpsUnlock": true,
+      "fpsTarget": 9999,
+      "noFog": true,
+      "noGrass": true,
+      "noShadow": true,
+      "low_poly": true,
+      "no_effects": true,
+      "optimize_render": true
+    },
+    "macro": {
+      "enabled": true,
+      "autoGlooWall": true,
+      "instaCrouch": true,
+      "fastWeaponSwitch": true,
+      "autoLoot": true,
+      "auto_reload": true,
+      "auto_heal": true
+    },
+    "network": {
+      "enabled": true,
+      "lagSwitch": true,
+      "lagOnPeek": true,
+      "fakePacketDrop": 0.999,
+      "rollback": 9999,
+      "desync": true,
+      "anti_timeout": true,
+      "ping_manipulation": true
+    },
+    "super_ghim": {
+      "enabled": true,
+      "force_lock_all": true,
+      "ignore_drop": true,
+      "lock_through_anything": true,
+      "unbreakable_stick": true,
+      "teleport_aim": true,
+      "instant_snap_to_nearest": true,
+      "continuous_lock": true,
+      "lock_while_reloading": true,
+      "lock_while_moving": true,
+      "lock_while_jumping": true,
+      "lock_while_ads": true,
+      "lock_while_hipfire": true,
+      "lock_on_all_bones": true,
+      "lock_on_vehicles": true,
+      "lock_on_objects": true,
+      "lock_on_teammates": false,
+      "headshot_always": true,
+      "head_only": true,
+      "no_overshoot": true,
+      "perfect_aim": true,
+      "predict_head_final": true
+    }
+  }
+}
