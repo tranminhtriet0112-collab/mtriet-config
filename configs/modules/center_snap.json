@@ -1,3 +1,5 @@
 {
-  "super_ghim": { "instant_snap_to_nearest": true, "teleport_aim": true }
+  "center_lock": {
+    "snap_to_center": false
+  }
 }
