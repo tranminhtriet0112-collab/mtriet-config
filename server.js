@@ -24,11 +24,15 @@ function checkAuth(req, res, next) {
     res.redirect('/');
 }
 
-// Tạo thư mục config nếu chưa có (không cần thư mục con 1)
+// Tạo thư mục config nếu chưa có
 function ensureConfigDir() {
-    const dir = path.join(__dirname, 'configs', 'modules');
+    const dir = path.join(__dirname, 'configs', 'modules', '1');
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
+    }
+    const dummy = path.join(dir, 'dummy.json');
+    if (!fs.existsSync(dummy)) {
+        fs.writeFileSync(dummy, '{}');
     }
 }
 ensureConfigDir();
@@ -92,13 +96,11 @@ function mergeAllConfigs(modules) {
         tagnhay: ['aim', 'touch', 'vertical', 'swipe', 'scope'],
         centerlock: ['snap', 'stick', 'magnet', 'brake', 'prediction']
     };
-
     for (let mod in moduleMap) {
         if (modules[mod]) {
             for (let sub of moduleMap[mod]) {
                 if (modules[mod][sub] === true) {
-                    // SỬA ĐƯỜNG DẪN: KHÔNG CÓ THƯ MỤC CON '1/'
-                    const filePath = path.join(__dirname, 'configs', 'modules', `${mod}_${sub}.json`);
+                    const filePath = path.join(__dirname, 'configs', 'modules', '1', `${mod}_${sub}.json`);
                     if (fs.existsSync(filePath)) {
                         try {
                             const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -109,9 +111,7 @@ function mergeAllConfigs(modules) {
                                     result[key] = data[key];
                                 }
                             }
-                        } catch (e) {
-                            console.log('Lỗi đọc file:', filePath);
-                        }
+                        } catch(e) {}
                     }
                 }
             }
@@ -123,8 +123,7 @@ function mergeAllConfigs(modules) {
 app.get('/config.json', checkAuth, (req, res) => {
     const modules = userModules[USER] || {};
     if (req.cookies.unlocked === 'true') {
-        const finalConfig = mergeAllConfigs(modules);
-        res.json(finalConfig);
+        res.json(mergeAllConfigs(modules));
     } else {
         res.json({ status: 'locked', message: 'Chưa unlock VIP' });
     }
@@ -136,13 +135,9 @@ app.get('/logout', (req, res) => {
     res.redirect('/');
 });
 
-app.use((req, res) => res.status(404).send('Không tìm thấy trang'));
 app.use((err, req, res, next) => {
-    console.error('Lỗi server:', err);
-    res.status(500).send('Lỗi server, vui lòng thử lại sau');
+    console.error(err);
+    res.status(500).send('Lỗi server, thử lại sau');
 });
 
-app.listen(PORT, () => {
-    console.log(`🔥 Server chạy tại http://localhost:${PORT}`);
-    console.log(`📁 Config dir: ${path.join(__dirname, 'configs', 'modules')}`);
-});
+app.listen(PORT, () => console.log(`🔥 Server chạy tại http://localhost:${PORT}`));
