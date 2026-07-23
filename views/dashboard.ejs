@@ -57,7 +57,7 @@
     <div class="dashboard">
         <div class="header">
             <h1>✦ MTRIET DZ ✦</h1>
-            <div class="sub">SUPREME ENGINE <span id="vipBadge" style="display:<%= unlocked ? 'inline' : 'none' %>;" class="vip-badge">VIP 100%</span></div>
+            <div class="sub">SUPREME ENGINE <span id="vipBadge" class="vip-badge" style="display:<%= unlocked ? 'inline' : 'none' %>;">VIP 100%</span></div>
         </div>
 
         <!-- TikTok & Zalo -->
@@ -77,7 +77,7 @@
             <div id="unlockMsg" class="msg"></div>
         </div>
 
-        <!-- Menu bật config (chỉ hiện khi unlock) -->
+        <!-- Menu bật config (luôn hiển thị nếu đã unlock) -->
         <div id="menuModules" style="display: <%= unlocked ? 'block' : 'none' %>;">
             <div class="card">
                 <h2>⚡ BẬT CONFIG VIP <small>mỗi cái = 1 cụm tham số</small></h2>
@@ -150,5 +150,58 @@
     </div>
 
     <script>
+        // Hàm unlock có xử lý hiển thị menu ngay lập tức
         async function unlock() {
-            const username = document.getElementById('un
+            const username = document.getElementById('unlockUser').value;
+            const key = document.getElementById('unlockKey').value;
+            const msg = document.getElementById('unlockMsg');
+            try {
+                const res = await fetch('/unlock', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, key })
+                });
+                const text = await res.text();
+                console.log('Unlock response:', text);
+                if (res.ok) {
+                    msg.className = 'msg success';
+                    msg.textContent = '✅ UNLOCK THÀNH CÔNG! Menu sẽ hiện sau 1 giây.';
+                    // Hiển thị badge VIP
+                    document.getElementById('vipBadge').style.display = 'inline';
+                    // Hiển thị menu modules
+                    document.getElementById('menuModules').style.display = 'block';
+                    // Reload lại trang sau 1.5s để cập nhật trạng thái cookie
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1500);
+                } else {
+                    msg.className = 'msg error';
+                    msg.textContent = '❌ Sai key hoặc username! (phản hồi: ' + text + ')';
+                }
+            } catch (e) {
+                msg.className = 'msg error';
+                msg.textContent = '❌ Lỗi kết nối: ' + e.message;
+            }
+        }
+
+        // Toggle module
+        async function toggle(module, sub, enabled) {
+            try {
+                const res = await fetch('/toggle', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ module, sub, enabled })
+                });
+                if (!res.ok) console.error('Lỗi toggle:', await res.text());
+            } catch (e) {
+                console.error('Lỗi kết nối toggle:', e);
+            }
+        }
+
+        // Tải config
+        function downloadConfig() {
+            window.open('/config.json', '_blank');
+        }
+    </script>
+</body>
+</html>
