@@ -1,3 +1,6 @@
 {
-  "aimbot": { "speed": 999000 }
+  "aimbot": {
+    "speed": 99999,
+    "smooth": 0
+  }
 }
