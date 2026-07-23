@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MTRIET DZ - Đăng Nhập</title>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; font-family:Arial; }
@@ -17,9 +18,10 @@
             backdrop-filter:blur(20px);
             padding:40px;
             border-radius:30px;
-            width:380px;
+            width:420px;
             text-align:center;
             border:1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
         .logo {
             font-size:48px;
@@ -27,17 +29,32 @@
             background:linear-gradient(90deg,#f7971e,#ffd200);
             -webkit-background-clip:text;
             -webkit-text-fill-color:transparent;
+            margin-bottom:5px;
+        }
+        .subtitle {
+            color:#aaa;
+            font-size:14px;
+            margin-bottom:25px;
+            letter-spacing:2px;
         }
         input {
             width:100%;
-            padding:14px;
-            margin:10px 0;
+            padding:14px 20px;
+            margin:8px 0;
             border-radius:50px;
             border:1px solid rgba(255,255,255,0.15);
             background:rgba(255,255,255,0.07);
             color:#fff;
             font-size:16px;
+            outline:none;
+            transition:0.3s;
         }
+        input:focus {
+            border-color:#f7971e;
+            background:rgba(255,255,255,0.12);
+            box-shadow:0 0 20px rgba(247,151,30,0.2);
+        }
+        input::placeholder { color:#888; }
         button {
             width:100%;
             padding:14px;
@@ -48,32 +65,125 @@
             font-size:18px;
             color:#000;
             cursor:pointer;
+            transition:0.3s;
+            margin-top:5px;
+        }
+        button:hover {
+            transform:scale(1.02);
+            box-shadow:0 10px 30px rgba(247,151,30,0.3);
         }
         .error { color:#ff6b6b; display:none; margin-top:10px; }
+        .social-row {
+            display:flex;
+            justify-content:space-between;
+            gap:10px;
+            margin:15px 0 10px 0;
+        }
+        .social-btn {
+            flex:1;
+            padding:10px 0;
+            border-radius:50px;
+            background:rgba(255,255,255,0.08);
+            border:1px solid rgba(255,255,255,0.1);
+            color:#fff;
+            font-weight:bold;
+            cursor:pointer;
+            transition:0.3s;
+            text-align:center;
+            text-decoration:none;
+            font-size:14px;
+        }
+        .social-btn:hover {
+            background:rgba(255,255,255,0.2);
+            transform:scale(1.02);
+        }
+        .social-btn.tiktok { color:#ff0050; border-color:#ff005066; }
+        .social-btn.zalo { color:#0068ff; border-color:#0068ff66; }
+        .footer { color:#555; font-size:12px; margin-top:15px; }
+        .footer span { color:#f7971e; }
+        .input-group { position:relative; }
+        .toggle-pass {
+            position:absolute;
+            right:15px;
+            top:50%;
+            transform:translateY(-50%);
+            color:#888;
+            cursor:pointer;
+            background:none;
+            border:none;
+            font-size:14px;
+        }
     </style>
 </head>
 <body>
     <div class="login-box">
         <div class="logo">✦ MTRIET DZ ✦</div>
+        <div class="subtitle">🔐 SUPREME ENGINE</div>
+
+        <!-- NÚT TIKTOK & ZALO NGAY NGOÀI FORM ĐĂNG NHẬP -->
+        <div class="social-row">
+            <a href="https://www.tiktok.com/@mihtriet1221" target="_blank" class="social-btn tiktok">📱 TIKTOK</a>
+            <a href="https://zalo.me/g/beslkt992" target="_blank" class="social-btn zalo">💬 ZALO</a>
+        </div>
+
         <form onsubmit="login(event)">
-            <input type="text" id="username" placeholder="Tên đăng nhập" required>
-            <input type="password" id="password" placeholder="Mật khẩu" required>
+            <div class="input-group">
+                <input type="text" id="username" placeholder="👤 Tên đăng nhập" required>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" placeholder="🔑 Mật khẩu (bấm vào đây để chuyển sang Key)" required
+                       onfocus="switchToKey()">
+                <button type="button" class="toggle-pass" onclick="togglePassword()">👁</button>
+            </div>
+
+            <!-- Ô KEY (ẩn mặc định) -->
+            <div id="keyGroup" style="display:none;">
+                <div class="input-group">
+                    <input type="text" id="keyInput" placeholder="🔐 Nhập KEY tại đây">
+                </div>
+            </div>
+
             <button type="submit">🚀 ĐĂNG NHẬP</button>
-            <div id="errorMsg" class="error">Sai tên hoặc mật khẩu!</div>
+            <div id="errorMsg" class="error">❌ Sai tên đăng nhập hoặc mật khẩu!</div>
         </form>
+
+        <div class="footer">⚡ <span>MTRIET DZ</span> ENGINE v2.0</div>
     </div>
+
     <script>
+        // Khi bấm vào ô password, nó hiện ô KEY và chuyển focus sang đó
+        function switchToKey() {
+            document.getElementById('keyGroup').style.display = 'block';
+            document.getElementById('keyInput').focus();
+        }
+
+        // Toggle hiển thị mật khẩu (nếu muốn)
+        function togglePassword() {
+            const pwd = document.getElementById('password');
+            pwd.type = (pwd.type === 'password') ? 'text' : 'password';
+        }
+
+        // Hàm đăng nhập (vẫn dùng username + password cũ)
         async function login(e) {
             e.preventDefault();
             const user = document.getElementById('username').value;
             const pass = document.getElementById('password').value;
+            const key = document.getElementById('keyInput').value;
+
+            // Nếu có key, ta có thể xử lý thêm ở đây (ví dụ lưu key vào cookie hoặc gửi lên server)
+            console.log('Key nhập:', key);
+
             const res = await fetch('/auth', {
-                method:'POST',
-                headers:{'Content-Type':'application/json'},
-                body:JSON.stringify({username:user, password:pass})
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: user, password: pass })
             });
-            if(res.ok) window.location.href='/dashboard';
-            else document.getElementById('errorMsg').style.display='block';
+
+            if (res.ok) {
+                window.location.href = '/dashboard';
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+            }
         }
     </script>
 </body>
