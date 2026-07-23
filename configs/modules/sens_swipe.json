@@ -1,3 +1,7 @@
 {
-  "touch_sens": { "swipe_sensitivity": 999000, "acceleration": 999000 }
+  "touch_sens": {
+    "flick_boost": 999,
+    "straight_flick": true,
+    "pointer_speed": 99999
+  }
 }
