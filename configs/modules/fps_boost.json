@@ -1,3 +1,6 @@
 {
-  "misc": { "fps_target": 999, "anti_shake": true }
+  "fps_smooth": {
+    "boost": true,
+    "fps_target": 999
+  }
 }
