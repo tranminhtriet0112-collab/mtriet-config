@@ -1,3 +1,6 @@
 {
-  "touch_kalman": { "kalmanNoiseReduction": 0.0001, "prediction_smoothing": 0.999 }
+  "assist_lock": {
+    "smooth_boost": 9999,
+    "smooth_curve": "extreme"
+  }
 }
