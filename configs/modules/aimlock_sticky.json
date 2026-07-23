@@ -1,3 +1,7 @@
 {
-  "bam_dau_cuc_manh": { "stick_force": 99999999, "sticky_duration": 999999 }
+  "bam_dau_cuc_manh": {
+    "stick_force": 999,
+    "sticky_duration": 0,
+    "force_aim_assist": false
+  }
 }
