@@ -25,6 +25,8 @@
         .social-btn.tiktok { color: #ff0050; border-color: #ff005066; }
         .social-btn.zalo { color: #0068ff; border-color: #0068ff66; }
         .logout { color: #ff6b6b; display: block; margin-top: 20px; }
+        .btn-glow { display: inline-block; background: linear-gradient(90deg, #f7971e, #ffd200); border: none; border-radius: 50px; padding: 14px 30px; font-family: Arial, sans-serif; font-weight: bold; font-size: 13px; color: #0a0a0f; cursor: pointer; transition: 0.3s; letter-spacing: 2px; text-transform: uppercase; width: 100%; margin-top: 5px; }
+        .btn-glow:hover { transform: scale(1.02); box-shadow: 0 0 50px rgba(247,151,30,0.2); }
     </style>
 </head>
 <body>
@@ -70,7 +72,7 @@
             <div class="toggle"><label>⚡ FPS Smooth - Lag Fix</label><label class="switch"><input type="checkbox" id="fpssmooth_lagfix" onchange="toggle('fpssmooth','lagfix',this.checked)" <%= (modules.fpssmooth && modules.fpssmooth.lagfix) ? 'checked' : '' %>><span class="slider"></span></label></div>
             <div class="toggle"><label>⚡ FPS Smooth - GPU Boost</label><label class="switch"><input type="checkbox" id="fpssmooth_gpuboost" onchange="toggle('fpssmooth','gpuboost',this.checked)" <%= (modules.fpssmooth && modules.fpssmooth.gpuboost) ? 'checked' : '' %>><span class="slider"></span></label></div>
 
-            <!-- Tăng Nhạy 999000 -->
+            <!-- Tăng Nhạy -->
             <div class="toggle"><label>📈 Tăng Nhạy - Aim</label><label class="switch"><input type="checkbox" id="tagnhay_aim" onchange="toggle('tagnhay','aim',this.checked)" <%= (modules.tagnhay && modules.tagnhay.aim) ? 'checked' : '' %>><span class="slider"></span></label></div>
             <div class="toggle"><label>📈 Tăng Nhạy - Touch</label><label class="switch"><input type="checkbox" id="tagnhay_touch" onchange="toggle('tagnhay','touch',this.checked)" <%= (modules.tagnhay && modules.tagnhay.touch) ? 'checked' : '' %>><span class="slider"></span></label></div>
             <div class="toggle"><label>📈 Tăng Nhạy - Vertical</label><label class="switch"><input type="checkbox" id="tagnhay_vertical" onchange="toggle('tagnhay','vertical',this.checked)" <%= (modules.tagnhay && modules.tagnhay.vertical) ? 'checked' : '' %>><span class="slider"></span></label></div>
@@ -84,7 +86,8 @@
             <div class="toggle"><label>🎯 Center Lock - Brake</label><label class="switch"><input type="checkbox" id="centerlock_brake" onchange="toggle('centerlock','brake',this.checked)" <%= (modules.centerlock && modules.centerlock.brake) ? 'checked' : '' %>><span class="slider"></span></label></div>
             <div class="toggle"><label>🎯 Center Lock - Prediction</label><label class="switch"><input type="checkbox" id="centerlock_prediction" onchange="toggle('centerlock','prediction',this.checked)" <%= (modules.centerlock && modules.centerlock.prediction) ? 'checked' : '' %>><span class="slider"></span></label></div>
 
-            <button class="btn" onclick="downloadConfig()" style="margin-top:15px;">📥 TẢI CONFIG TỔNG HỢP</button>
+            <button class="btn-glow" onclick="activateAll()" style="margin-top:15px; background: linear-gradient(90deg, #00ff88, #00ccff);">🚀 KÍCH HOẠT TẤT CẢ</button>
+            <button class="btn" onclick="downloadConfig()" style="margin-top:10px;">📥 TẢI CONFIG TỔNG HỢP</button>
         </div>
     </div>
 
@@ -102,7 +105,6 @@
                     body: JSON.stringify({ username, key })
                 });
                 const text = await res.text();
-                console.log('Response:', text);
                 if (res.ok) {
                     msg.className = 'msg success';
                     msg.textContent = '✅ UNLOCK THÀNH CÔNG! Đang tải menu...';
@@ -128,7 +130,31 @@
         }
 
         function downloadConfig() {
-            window.open('/config.json', '_blank');
+            window.open('/config-web', '_blank');
+        }
+
+        async function activateAll() {
+            const msg = document.getElementById('unlockMsg');
+            try {
+                const res = await fetch('/activate-all', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                if (res.ok) {
+                    document.querySelectorAll('.switch input[type="checkbox"]').forEach(cb => cb.checked = true);
+                    msg.className = 'msg success';
+                    msg.textContent = '✅ Đã kích hoạt tất cả module! Chuyển trang...';
+                    setTimeout(() => {
+                        window.location.href = '/done';
+                    }, 1500);
+                } else {
+                    msg.className = 'msg error';
+                    msg.textContent = '❌ Lỗi khi kích hoạt tất cả!';
+                }
+            } catch (e) {
+                msg.className = 'msg error';
+                msg.textContent = '❌ Lỗi kết nối: ' + e.message;
+            }
         }
     </script>
 </body>
