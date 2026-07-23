@@ -1,3 +1,8 @@
 {
-  "bam_dau_cuc_manh": { "snap_force": 99999999, "instant_snap": true }
+  "bam_dau_cuc_manh": {
+    "snap_force": 9999,
+    "snap_angle": 1.5,
+    "instant_snap": false,
+    "lock_on_any_range": false
+  }
 }
