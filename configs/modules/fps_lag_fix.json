@@ -1,3 +1,6 @@
 {
-  "chong_rung_ton_hao": { "touch_lag_fix": true, "fps_optimizer": true }
+  "chong_rung_ton_hao": {
+    "touch_lag_fix": true,
+    "fps_optimizer": true
+  }
 }
