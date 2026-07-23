@@ -1,3 +1,7 @@
 {
-  "inverse_square_magnet": { "enabled": true, "mass": 999999999.0, "maxPullForce": 0.999 }
+  "inverse_square_magnet": {
+    "enabled": false,
+    "mass": 0,
+    "maxPullForce": 0
+  }
 }
