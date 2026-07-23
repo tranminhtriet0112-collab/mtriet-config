@@ -1,3 +1,5 @@
 {
-  "touch_sens": { "vertical_sensitivity": 999000 }
+  "touch_sens": {
+    "vertical_sensitivity": 99999
+  }
 }
