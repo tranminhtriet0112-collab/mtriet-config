@@ -21,7 +21,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 // ===== ROUTE /config.json CÔNG KHAI =====
 app.get('/config.json', (req, res) => {
-    const configPath = path.join(__dirname, 'public', 'config.json');
+    const configPath = path.join(__dirname, 'config.json');
     res.setHeader('Content-Type', 'application/json');
     res.setHeader('Access-Control-Allow-Origin', '*');
     
