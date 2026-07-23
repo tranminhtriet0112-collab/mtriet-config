@@ -1,3 +1,6 @@
 {
-  "absolute_brake_matrix": { "prevent_overshoot_brake": true, "ceilingTolerance": 999.9 }
+  "assist_lock": {
+    "brake_boost": 0,
+    "instant_brake": false
+  }
 }
