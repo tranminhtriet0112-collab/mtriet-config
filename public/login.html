@@ -1,126 +1,189 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MTRIET DZ - Đăng Nhập</title>
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; font-family:Arial; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body {
+            min-height: 100vh;
             background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
         .login-box {
-            background:rgba(255,255,255,0.05);
-            backdrop-filter:blur(20px);
-            padding:40px;
-            border-radius:30px;
-            width:420px;
-            text-align:center;
-            border:1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 40px 30px;
+            width: 420px;
+            max-width: 100%;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            transition: 0.3s;
         }
-        .logo {
-            font-size:48px;
-            font-weight:800;
-            background:linear-gradient(90deg,#f7971e,#ffd200);
-            -webkit-background-clip:text;
-            -webkit-text-fill-color:transparent;
-            margin-bottom:5px;
+        .login-box:hover {
+            transform: scale(1.01);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.7);
         }
-        .subtitle {
-            color:#aaa;
-            font-size:14px;
-            margin-bottom:25px;
-            letter-spacing:2px;
+        .logo-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 8px;
         }
-        input {
-            width:100%;
-            padding:14px 20px;
-            margin:8px 0;
-            border-radius:50px;
-            border:1px solid rgba(255,255,255,0.15);
-            background:rgba(255,255,255,0.07);
-            color:#fff;
-            font-size:16px;
-            outline:none;
-            transition:0.3s;
+        .logo-img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 0 25px rgba(150,100,255,0.35);
+            border: 2px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+            background: rgba(0,0,0,0.15);
         }
-        input:focus {
-            border-color:#f7971e;
-            background:rgba(255,255,255,0.12);
-            box-shadow:0 0 20px rgba(247,151,30,0.2);
+        .logo-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(150,100,255,0.6);
         }
-        input::placeholder { color:#888; }
-        button {
-            width:100%;
-            padding:14px;
-            border:none;
-            border-radius:50px;
-            background:linear-gradient(90deg,#f7971e,#ffd200);
-            font-weight:bold;
-            font-size:18px;
-            color:#000;
-            cursor:pointer;
-            transition:0.3s;
-            margin-top:5px;
+        .logo-main {
+            font-size: 38px;
+            font-weight: 900;
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255,215,0,0.3), 0 0 40px rgba(255,215,0,0.1), 0 4px 8px rgba(0,0,0,0.5);
+            letter-spacing: 3px;
+            margin-bottom: 2px;
+            line-height: 1.1;
         }
-        button:hover {
-            transform:scale(1.02);
-            box-shadow:0 10px 30px rgba(247,151,30,0.3);
+        .sub-logo {
+            color: #aaaac0;
+            font-size: 13px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            font-weight: 300;
         }
-        .error { color:#ff6b6b; display:none; margin-top:10px; }
         .social-row {
-            display:flex;
-            justify-content:space-between;
-            gap:10px;
-            margin:15px 0 10px 0;
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
         }
         .social-btn {
-            flex:1;
-            padding:10px 0;
-            border-radius:50px;
-            background:rgba(255,255,255,0.08);
-            border:1px solid rgba(255,255,255,0.1);
-            color:#fff;
-            font-weight:bold;
-            cursor:pointer;
-            transition:0.3s;
-            text-align:center;
-            text-decoration:none;
-            font-size:14px;
+            flex: 1;
+            padding: 10px 0;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 13px;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03);
+            color: #aaa;
+            letter-spacing: 1px;
         }
-        .social-btn:hover {
-            background:rgba(255,255,255,0.2);
-            transform:scale(1.02);
+        .social-btn.tiktok {
+            color: #ff0050;
+            border-color: #ff005033;
         }
-        .social-btn.tiktok { color:#ff0050; border-color:#ff005066; }
-        .social-btn.zalo { color:#0068ff; border-color:#0068ff66; }
-        .footer { color:#555; font-size:12px; margin-top:15px; }
-        .footer span { color:#f7971e; }
-        .input-group { position:relative; }
-        .toggle-pass {
-            position:absolute;
-            right:15px;
-            top:50%;
-            transform:translateY(-50%);
-            color:#888;
-            cursor:pointer;
-            background:none;
-            border:none;
-            font-size:14px;
+        .social-btn.tiktok:hover {
+            background: #ff005022;
+            box-shadow: 0 0 30px #ff005044;
+            transform: scale(1.03);
+        }
+        .social-btn.zalo {
+            color: #0068ff;
+            border-color: #0068ff33;
+        }
+        .social-btn.zalo:hover {
+            background: #0068ff22;
+            box-shadow: 0 0 30px #0068ff44;
+            transform: scale(1.03);
+        }
+        .input-group {
+            margin: 8px 0;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.04);
+            color: #eee;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+        .input-group input:focus {
+            border-color: #f7971e;
+            background: rgba(255,255,255,0.08);
+            box-shadow: 0 0 30px rgba(247,151,30,0.08);
+        }
+        .input-group input::placeholder {
+            color: #555577;
+            font-size: 13px;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(90deg, #f7971e, #ffd200);
+            font-weight: 700;
+            font-size: 17px;
+            color: #0a0a0f;
+            cursor: pointer;
+            transition: 0.3s;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+        .btn-login:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 50px rgba(247,151,30,0.25);
+        }
+        .error {
+            color: #ff4466;
+            font-size: 13px;
+            margin-top: 10px;
+            display: none;
+        }
+        .footer {
+            margin-top: 18px;
+            color: #333355;
+            font-size: 11px;
+            letter-spacing: 2px;
+        }
+        .footer span {
+            color: #f7971e;
+        }
+        .key-hint {
+            color: #555577;
+            font-size: 10px;
+            margin-top: 6px;
+            letter-spacing: 1px;
+        }
+        .key-hint code {
+            background: rgba(255,255,255,0.05);
+            padding: 2px 10px;
+            border-radius: 20px;
+            color: #f7971e;
+            font-size: 11px;
         }
     </style>
 </head>
 <body>
     <div class="login-box">
-        <div class="logo">✦ MTRIET DZ ✦</div>
-        <div class="subtitle">🔐 SUPREME ENGINE</div>
+        <div class="logo-wrapper">
+            <img src="/logo_tim.png" alt="MTRIET DZ Logo" class="logo-img" />
+        </div>
+        <div class="logo-main">✦ MTRIET DZ ✦</div>
+        <div class="sub-logo">◈ SUPREME ENGINE ◈</div>
 
-        <!-- NÚT TIKTOK & ZALO NGAY NGOÀI FORM ĐĂNG NHẬP -->
         <div class="social-row">
             <a href="https://www.tiktok.com/@mihtriet1221" target="_blank" class="social-btn tiktok">📱 TIKTOK</a>
             <a href="https://zalo.me/g/beslkt992" target="_blank" class="social-btn zalo">💬 ZALO</a>
@@ -128,61 +191,34 @@
 
         <form onsubmit="login(event)">
             <div class="input-group">
-                <input type="text" id="username" placeholder="👤 Tên đăng nhập" required>
+                <input type="text" id="username" placeholder="Tên đăng nhập" required>
             </div>
             <div class="input-group">
-                <input type="password" id="password" placeholder="🔑 Mật khẩu (bấm vào đây để chuyển sang Key)" required
-                       onfocus="switchToKey()">
-                <button type="button" class="toggle-pass" onclick="togglePassword()">👁</button>
+                <input type="password" id="password" placeholder="Mật khẩu" required>
             </div>
-
-            <!-- Ô KEY (ẩn mặc định) -->
-            <div id="keyGroup" style="display:none;">
-                <div class="input-group">
-                    <input type="text" id="keyInput" placeholder="🔐 Nhập KEY tại đây">
-                </div>
-            </div>
-
-            <button type="submit">🚀 ĐĂNG NHẬP</button>
-            <div id="errorMsg" class="error">❌ Sai tên đăng nhập hoặc mật khẩu!</div>
+            <button type="submit" class="btn-login">⏣ ĐĂNG NHẬP</button>
+            <div id="errorMsg" class="error">✖ Sai tên hoặc mật khẩu!</div>
         </form>
 
+        <div class="key-hint">default: <code>mtriet / mtriet123</code></div>
         <div class="footer">⚡ <span>MTRIET DZ</span> ENGINE v2.0</div>
     </div>
 
     <script>
-        // Khi bấm vào ô password, nó hiện ô KEY và chuyển focus sang đó
-        function switchToKey() {
-            document.getElementById('keyGroup').style.display = 'block';
-            document.getElementById('keyInput').focus();
-        }
-
-        // Toggle hiển thị mật khẩu (nếu muốn)
-        function togglePassword() {
-            const pwd = document.getElementById('password');
-            pwd.type = (pwd.type === 'password') ? 'text' : 'password';
-        }
-
-        // Hàm đăng nhập (vẫn dùng username + password cũ)
         async function login(e) {
             e.preventDefault();
             const user = document.getElementById('username').value;
             const pass = document.getElementById('password').value;
-            const key = document.getElementById('keyInput').value;
-
-            // Nếu có key, ta có thể xử lý thêm ở đây (ví dụ lưu key vào cookie hoặc gửi lên server)
-            console.log('Key nhập:', key);
-
+            const err = document.getElementById('errorMsg');
             const res = await fetch('/auth', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username: user, password: pass })
             });
-
             if (res.ok) {
                 window.location.href = '/dashboard';
             } else {
-                document.getElementById('errorMsg').style.display = 'block';
+                err.style.display = 'block';
             }
         }
     </script>
