@@ -1,3 +1,7 @@
 {
-  "fps_boost": { "enabled": true, "fpsUnlock": true, "fpsTarget": 9999 }
+  "performance": {
+    "adaptiveFrameSkip": true,
+    "dynamicFrameSkipRate": 0.001,
+    "cpu_priority": "high"
+  }
 }
