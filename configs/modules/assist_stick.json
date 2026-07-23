@@ -1,3 +1,7 @@
 {
-  "aimlock_kodb": { "lockForce": 0.999, "breakOnSwipe": false }
+  "assist_lock": {
+    "stick_boost": 0,
+    "pull_boost": 0,
+    "friction_override": 0
+  }
 }
