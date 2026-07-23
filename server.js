@@ -19,12 +19,27 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// ===== ROUTE CÔNG KHAI CHO GAME LẤY CONFIG (KHÔNG CẦN LOGIN) =====
+app.get('/config.json', (req, res) => {
+    const configPath = path.join(__dirname, 'public', 'config.json');
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    if (fs.existsSync(configPath)) {
+        res.sendFile(configPath);
+    } else {
+        res.status(404).json({ error: 'config.json not found in public folder' });
+    }
+});
+
+// ===== MIDDLEWARE CHECK LOGIN =====
 function checkAuth(req, res, next) {
-    if (req.cookies && req.cookies.loggedIn === 'true') return next();
+    if (req.cookies && req.cookies.loggedIn === 'true') {
+        return next();
+    }
     res.redirect('/');
 }
 
-// Tạo thư mục config nếu chưa có
+// ===== TẠO THƯ MỤC CONFIG NẾU CHƯA CÓ =====
 function ensureConfigDir() {
     const dir = path.join(__dirname, 'configs', 'modules', '1');
     if (!fs.existsSync(dir)) {
@@ -37,6 +52,7 @@ function ensureConfigDir() {
 }
 ensureConfigDir();
 
+// ===== TRANG ĐĂNG NHẬP =====
 app.get('/', (req, res) => {
     if (req.cookies && req.cookies.loggedIn === 'true') return res.redirect('/dashboard');
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
@@ -52,6 +68,7 @@ app.post('/auth', (req, res) => {
     }
 });
 
+// ===== DASHBOARD =====
 app.get('/dashboard', checkAuth, (req, res) => {
     const isUnlocked = (req.cookies && req.cookies.unlocked === 'true') || false;
     res.render('dashboard', {
@@ -62,23 +79,27 @@ app.get('/dashboard', checkAuth, (req, res) => {
     });
 });
 
+// ===== UNLOCK VIP =====
 app.post('/unlock', checkAuth, (req, res) => {
     const { username, key } = req.body;
     if (username === USER && key === VIP_KEY) {
         res.cookie('unlocked', 'true', { maxAge: 3600000, httpOnly: true, path: '/' });
-        userModules[USER] = {
-            aimlock: { head: false, neck: false, snap: false, sticky: false, magnetic: false },
-            assistlock: { drag: false, stick: false, pull: false, smooth: false, brake: false },
-            fpssmooth: { boost: false, adaptive: false, dynamic: false, lagfix: false, gpuboost: false },
-            tagnhay: { aim: false, touch: false, vertical: false, swipe: false, scope: false },
-            centerlock: { snap: false, stick: false, magnet: false, brake: false, prediction: false }
-        };
+        if (!userModules[USER]) {
+            userModules[USER] = {
+                aimlock: { head: false, neck: false, snap: false, sticky: false, magnetic: false },
+                assistlock: { drag: false, stick: false, pull: false, smooth: false, brake: false },
+                fpssmooth: { boost: false, adaptive: false, dynamic: false, lagfix: false, gpuboost: false },
+                tagnhay: { aim: false, touch: false, vertical: false, swipe: false, scope: false },
+                centerlock: { snap: false, stick: false, magnet: false, brake: false, prediction: false }
+            };
+        }
         res.status(200).send('UNLOCKED');
     } else {
         res.status(401).send('INVALID');
     }
 });
 
+// ===== TOGGLE MODULE =====
 app.post('/toggle', checkAuth, (req, res) => {
     const { module, sub, enabled } = req.body;
     if (!userModules[USER]) userModules[USER] = {};
@@ -87,6 +108,7 @@ app.post('/toggle', checkAuth, (req, res) => {
     res.status(200).send('OK');
 });
 
+// ===== MERGE CONFIG =====
 function mergeAllConfigs(modules) {
     const result = {};
     const moduleMap = {
@@ -120,7 +142,8 @@ function mergeAllConfigs(modules) {
     return result;
 }
 
-app.get('/config.json', checkAuth, (req, res) => {
+// ===== CONFIG TỔNG HỢP CHO WEB (CÓ CHECK LOGIN) =====
+app.get('/config-web', checkAuth, (req, res) => {
     const modules = userModules[USER] || {};
     if (req.cookies.unlocked === 'true') {
         res.json(mergeAllConfigs(modules));
@@ -129,15 +152,11 @@ app.get('/config.json', checkAuth, (req, res) => {
     }
 });
 
+// ===== LOGOUT =====
 app.get('/logout', (req, res) => {
     res.clearCookie('loggedIn');
     res.clearCookie('unlocked');
     res.redirect('/');
-});
-
-app.use((err, req, res, next) => {
-    console.error(err);
-    res.status(500).send('Lỗi server, thử lại sau');
 });
 
 app.listen(PORT, () => console.log(`🔥 Server chạy tại http://localhost:${PORT}`));
